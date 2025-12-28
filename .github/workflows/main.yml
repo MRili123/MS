@@ -1,4 +1,4 @@
-name: Multi Step Workflow
+name: Test Workflow
 
 on:
   push:
@@ -6,24 +6,15 @@ on:
       - main
 
 jobs:
-  demo_steps:
+  test:
     runs-on: ubuntu-latest
-
     steps:
-      - name: Étape 0 - Checkout du code
-        uses: actions/checkout@v3
-
-      - name: Étape 1 - Message de bienvenue
-        run: echo "Workflow à plusieurs étapes"
-
-      - name: Étape 2 - Afficher la date
+      - uses: actions/checkout@v3
+      - name: Say hello
+        run: echo "Hello from GitHub Actions"
+      - name: Show date
         run: date
-
-      - name: Étape 3 - Afficher le nom de la branche
-        run: |
-          # GITHUB_REF is provided by GitHub and looks like: refs/heads/main
-          # This strips the "refs/heads/" prefix so you get "main"
-          echo "Branche actuelle : ${GITHUB_REF#refs/heads/}"
-
-      - name: Étape 4 - Lister les fichiers
+      - name: Show branch
+        run: echo "Branch is ${{ github.ref_name }}"
+      - name: List files
         run: ls -la
