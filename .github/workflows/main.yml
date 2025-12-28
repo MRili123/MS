@@ -8,8 +8,6 @@ on:
 jobs:
   demo_steps:
     runs-on: ubuntu-latest
-    env:
-      GITHUB_REF: ${{ github.ref }}
 
     steps:
       - name: Étape 0 - Checkout du code
@@ -23,7 +21,9 @@ jobs:
 
       - name: Étape 3 - Afficher le nom de la branche
         run: |
-          echo "Branche actuelle : $GITHUB_REF"
+          # GITHUB_REF is provided by GitHub and looks like: refs/heads/main
+          # This strips the "refs/heads/" prefix so you get "main"
+          echo "Branche actuelle : ${GITHUB_REF#refs/heads/}"
 
       - name: Étape 4 - Lister les fichiers
         run: ls -la
